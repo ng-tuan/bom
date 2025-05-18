@@ -11,13 +11,13 @@ export class User {
   @Column()
   password: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: new Date() })
   last_login: Date;
 
-  @Column()
+  @Column({ default: new Date() })
   created_at: Date;
 
-  @Column()
+  @Column({ default: new Date() })
   updated_at: Date;
 
   @Column({ default: 0 })

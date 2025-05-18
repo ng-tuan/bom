@@ -74,6 +74,12 @@ npm run start:prod
 npm run start:debug
 ```
 
+### Commit Process
+```bash
+npm run format
+npm run lint
+```
+
 ## Database Setup
 
 1. Ensure MySQL is running on your system

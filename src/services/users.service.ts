@@ -13,22 +13,49 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
+  private isStrongPassword(password: string): boolean {
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    return (
+      password.length >= minLength &&
+      hasUpperCase &&
+      hasLowerCase &&
+      hasNumbers &&
+      hasSpecialChar
+    );
+  }
+
   async create(createUserDto: CreateUserDto): Promise<User> {
-    if (!createUserDto.password) {
-      throw new BadRequestException('Password is required');
+    const { user_name, password } = createUserDto;
+    // Validate input
+    if (!user_name || !password) {
+      throw new BadRequestException('Username and password are required');
+    }
+
+    // Validate password strength
+    if (!this.isStrongPassword(password)) {
+      throw new BadRequestException(
+        'Password must be at least 8 characters and include uppercase, lowercase, number, and special character',
+      );
+    }
+
+    const existingUser = await this.usersRepository.findOne({
+      where: { user_name },
+    });
+    if (existingUser) {
+      throw new BadRequestException('Username is already taken');
     }
 
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-    const now = new Date();
 
     const user = this.usersRepository.create({
       user_id: uuidv4(),
       user_name: createUserDto.user_name,
       password: hashedPassword,
-      created_at: now,
-      updated_at: now,
-      failed_login_attempts: 0,
-      account_locked: false,
     });
 
     return this.usersRepository.save(user);
