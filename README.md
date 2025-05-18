@@ -84,7 +84,11 @@ npm run lint
 
 1. Ensure MySQL is running on your system
 2. Create a database named 'auth' (or update the DB_DATABASE in .env)
-3. The application will use the database configuration from your .env file
+3. Run command to create table
+```bash
+npm run migration:run
+```
+4. The application will use the database configuration from your .env file
 
 ## API Documentation
 

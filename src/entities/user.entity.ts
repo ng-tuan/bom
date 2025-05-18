@@ -28,4 +28,7 @@ export class User {
 
   @Column({ nullable: true })
   account_locked_until: Date;
+
+  @Column({ nullable: false, default: 0 })
+  deleted_flag: number;
 }
