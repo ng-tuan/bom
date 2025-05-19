@@ -25,7 +25,7 @@ export class Material {
   unit: string;
 
   /** Price per unit of the material */
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  @Column({ type: 'decimal', precision: 20, scale: 2, nullable: true })
   unit_price: number;
 
   /** Category or type of the material */
