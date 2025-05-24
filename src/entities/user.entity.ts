@@ -1,34 +1,23 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { CommonEntity } from './common.entity';
 
 @Entity('users')
-export class User {
-  @PrimaryColumn('char', { length: 36 })
+export class User extends CommonEntity {
+  @PrimaryGeneratedColumn('uuid')
   user_id: string;
 
-  @Column({ unique: true })
-  user_name: string;
+  @Column({ length: 100, unique: true })
+  username: string;
 
-  @Column()
+  @Column({ length: 100 })
   password: string;
 
-  @Column({ nullable: true, default: new Date() })
-  last_login: Date;
+  @Column({ length: 100, nullable: true })
+  email: string;
 
-  @Column({ default: new Date() })
-  created_at: Date;
+  @Column({ length: 100, nullable: true })
+  full_name: string;
 
-  @Column({ default: new Date() })
-  updated_at: Date;
-
-  @Column({ default: 0 })
-  failed_login_attempts: number;
-
-  @Column({ type: 'boolean', default: false })
-  account_locked: boolean;
-
-  @Column({ nullable: true })
-  account_locked_until: Date;
-
-  @Column({ nullable: false, default: 0 })
-  deleted_flag: number;
+  @Column({ type: 'boolean', default: true })
+  is_active: boolean;
 }

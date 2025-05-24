@@ -2,19 +2,21 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import { CommonEntity } from './common.entity';
+import { Category } from './category.entity';
 
 @Entity('materials')
-export class Material {
+export class Material extends CommonEntity {
   /** Unique identifier for the material */
   @PrimaryGeneratedColumn('uuid')
   material_id: string;
 
   /** Name of the material */
   @Column({ length: 100 })
-  name: string;
+  material_name: string;
 
   /** Detailed description of the material */
   @Column({ type: 'text', nullable: true })
@@ -28,31 +30,16 @@ export class Material {
   @Column({ type: 'decimal', precision: 20, scale: 2, nullable: true })
   unit_price: number;
 
-  /** Category or type of the material */
-  @Column({ length: 50, nullable: true })
-  category: string;
+  /** Number of items in inventory */
+  @Column({ type: 'int', default: 0 })
+  number_of_inventory: number;
 
-  /** Flag to indicate if the material is active */
-  @Column({ type: 'boolean', default: true })
-  is_active: boolean;
+  /** Category ID reference */
+  @Column({ length: 36 })
+  category_id: string;
 
-  /** Timestamp when the record was created */
-  @CreateDateColumn()
-  created_at: Date;
-
-  /** User ID who created the record */
-  @Column({ nullable: false, default: 0 })
-  created_by: string;
-
-  /** Timestamp when the record was last updated */
-  @UpdateDateColumn()
-  updated_at: Date;
-
-  /** User ID who last updated the record */
-  @Column({ nullable: false, default: 0 })
-  updated_by: string;
-
-  /** Soft delete flag (0: active, 1: deleted) */
-  @Column({ nullable: false, default: 0 })
-  deleted_flag: number;
+  /** Category relationship */
+  @ManyToOne(() => Category, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
 }
