@@ -6,7 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { CommonEntity } from './common.entity';
-import { Category } from './category.entity';
+import type { Category } from './category.entity';
 
 @Entity('materials')
 export class Material extends CommonEntity {
@@ -39,7 +39,7 @@ export class Material extends CommonEntity {
   category_id: string;
 
   /** Category relationship */
-  @ManyToOne(() => Category, { onDelete: 'CASCADE' })
+  @ManyToOne('Category', { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'category_id' })
   category: Category;
 }
