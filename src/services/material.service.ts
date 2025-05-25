@@ -45,7 +45,7 @@ export class MaterialService {
     try {
       const material = await this.materialRepository.findOne({
         where: { material_id: id, delete_flag: false },
-        relations: ['category'],
+        relations: ['category', 'productDetails', 'inventories'],
       });
 
       if (!material) {
@@ -68,7 +68,7 @@ export class MaterialService {
     try {
       return await this.materialRepository.find({
         where: { delete_flag: false },
-        relations: ['category'],
+        relations: ['category', 'productDetails', 'inventories'],
       });
     } catch (error) {
       console.log('Error fetching materials:', error);
