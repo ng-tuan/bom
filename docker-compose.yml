@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_DATABASE=bom_db
+    depends_on:
+      - mysql
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - bom-network
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3309:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=bom_db
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - bom-network
+
+volumes:
+  mysql-data:
+
+networks:
+  bom-network:
+    driver: bridge 
