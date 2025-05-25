@@ -2,19 +2,19 @@ import { Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 export abstract class CommonEntity {
   /** Timestamp when the record was created */
-  @CreateDateColumn()
+  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP' })
   created_time: Date;
 
   /** User ID who created the record */
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   created_user: string;
 
   /** Timestamp when the record was last updated */
-  @UpdateDateColumn()
+  @UpdateDateColumn({ default: () => 'CURRENT_TIMESTAMP' })
   updated_time: Date;
 
   /** User ID who last updated the record */
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   updated_user: string;
 
   /** Soft delete flag */

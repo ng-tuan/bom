@@ -44,7 +44,8 @@ export class MaterialService {
   async findById(id: string): Promise<Material> {
     try {
       const material = await this.materialRepository.findOne({
-        where: { material_id: id, deleted_flag: 0 },
+        where: { material_id: id, delete_flag: false },
+        relations: ['category'],
       });
 
       if (!material) {
@@ -66,7 +67,8 @@ export class MaterialService {
   async findAll(): Promise<Material[]> {
     try {
       return await this.materialRepository.find({
-        where: { deleted_flag: 0 },
+        where: { delete_flag: false },
+        relations: ['category'],
       });
     } catch (error) {
       console.log('Error fetching materials:', error);

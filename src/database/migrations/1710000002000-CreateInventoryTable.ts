@@ -47,7 +47,8 @@ export class CreateInventoryTable1710000002000 implements MigrationInterface {
           {
             name: 'created_user',
             type: 'varchar',
-            isNullable: false,
+            length: '36',
+            isNullable: true,
           },
           {
             name: 'updated_time',
@@ -58,7 +59,8 @@ export class CreateInventoryTable1710000002000 implements MigrationInterface {
           {
             name: 'updated_user',
             type: 'varchar',
-            isNullable: false,
+            length: '36',
+            isNullable: true,
           },
           {
             name: 'delete_flag',

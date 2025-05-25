@@ -2,9 +2,9 @@ import {
   IsString,
   IsOptional,
   IsNumber,
-  IsBoolean,
   MinLength,
   MaxLength,
+  IsUUID,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -18,7 +18,7 @@ export class CreateMaterialDto {
   @IsString()
   @MinLength(1)
   @MaxLength(100)
-  name: string;
+  material_name: string;
 
   @ApiProperty({
     description: 'Detailed description of the material',
@@ -50,23 +50,19 @@ export class CreateMaterialDto {
   unit_price?: number;
 
   @ApiProperty({
-    description: 'Category of the material',
-    example: 'Raw Materials',
+    description: 'Number of items in inventory',
+    example: 100,
     required: false,
-    maxLength: 50,
+    default: 0,
   })
-  @IsString()
+  @IsNumber()
   @IsOptional()
-  @MaxLength(50)
-  category?: string;
+  number_of_inventory?: number;
 
   @ApiProperty({
-    description: 'Whether the material is active',
-    example: true,
-    required: false,
-    default: true,
+    description: 'Category ID of the material',
+    example: '123e4567-e89b-12d3-a456-426614174000',
   })
-  @IsBoolean()
-  @IsOptional()
-  is_active?: boolean;
+  @IsUUID()
+  category_id: string;
 }

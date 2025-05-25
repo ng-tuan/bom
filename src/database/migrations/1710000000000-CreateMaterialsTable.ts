@@ -38,7 +38,8 @@ export class CreateMaterialsTable1710000000000 implements MigrationInterface {
           {
             name: 'created_user',
             type: 'varchar',
-            isNullable: false,
+            length: '36',
+            isNullable: true,
           },
           {
             name: 'updated_time',
@@ -49,7 +50,8 @@ export class CreateMaterialsTable1710000000000 implements MigrationInterface {
           {
             name: 'updated_user',
             type: 'varchar',
-            isNullable: false,
+            length: '36',
+            isNullable: true,
           },
           {
             name: 'delete_flag',
@@ -116,7 +118,8 @@ export class CreateMaterialsTable1710000000000 implements MigrationInterface {
           {
             name: 'created_user',
             type: 'varchar',
-            isNullable: false,
+            length: '36',
+            isNullable: true,
           },
           {
             name: 'updated_time',
@@ -127,7 +130,8 @@ export class CreateMaterialsTable1710000000000 implements MigrationInterface {
           {
             name: 'updated_user',
             type: 'varchar',
-            isNullable: false,
+            length: '36',
+            isNullable: true,
           },
           {
             name: 'delete_flag',

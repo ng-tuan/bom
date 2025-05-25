@@ -30,9 +30,9 @@ export class UsersService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const { user_name, password } = createUserDto;
+    const { username, password } = createUserDto;
     // Validate input
-    if (!user_name || !password) {
+    if (!username || !password) {
       throw new BadRequestException('Username and password are required');
     }
 
@@ -44,18 +44,19 @@ export class UsersService {
     }
 
     const existingUser = await this.usersRepository.findOne({
-      where: { user_name },
+      where: { username },
     });
     if (existingUser) {
       throw new BadRequestException('Username is already taken');
     }
 
-    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = this.usersRepository.create({
       user_id: uuidv4(),
-      user_name: createUserDto.user_name,
+      username: username,
       password: hashedPassword,
+      is_active: true,
     });
 
     return this.usersRepository.save(user);
