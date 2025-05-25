@@ -1,14 +1,7 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  JoinColumn,
-  OneToMany,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { CommonEntity } from './common.entity';
-import { Material } from './material.entity';
 import { Order } from './order.entity';
+import { ProductDetail } from './product-detail.entity';
 
 @Entity('products')
 export class Product extends CommonEntity {
@@ -20,31 +13,23 @@ export class Product extends CommonEntity {
   @Column({ length: 100 })
   product_name: string;
 
-  /** Amount of the product */
-  @Column({ type: 'int', default: 0 })
-  product_amount: number;
-
-  /** Material ID reference */
-  @Column({ length: 36 })
-  material_id: string;
-
-  /** Amount of material used */
-  @Column({ type: 'int', default: 0 })
-  material_amount: number;
-
-  /** Total price of the product */
+  /** Price of the product */
   @Column({ type: 'decimal', precision: 20, scale: 2, nullable: true })
-  total_price: number;
+  product_price: number;
+
+  /** Version of the product */
+  @Column({ length: 20, nullable: true })
+  version: string;
 
   /** Detailed description of the product */
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  /** Material relationship */
-  @ManyToOne(() => Material, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'material_id' })
-  material: Material;
-
+  /** Orders for this product */
   @OneToMany(() => Order, (order) => order.product)
   orders: Order[];
+
+  /** Product details */
+  @OneToMany(() => ProductDetail, (detail: ProductDetail) => detail.product)
+  details: ProductDetail[];
 }

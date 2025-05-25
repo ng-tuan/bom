@@ -9,7 +9,6 @@ async function bootstrap() {
     .setTitle('BOM API')
     .setDescription('The BOM API description')
     .setVersion('1.0')
-    .addTag('materials')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

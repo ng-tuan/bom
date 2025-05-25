@@ -1,6 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { CommonEntity } from './common.entity';
-import type { Material } from './material.entity';
 
 @Entity('categories')
 export class Category extends CommonEntity {
@@ -12,11 +11,11 @@ export class Category extends CommonEntity {
   @Column({ length: 100 })
   category_name: string;
 
+  /** Type of the category */
+  @Column({ length: 50, nullable: true })
+  type: string;
+
   /** Detailed description of the category */
   @Column({ type: 'text', nullable: true })
   description: string;
-
-  /** Materials in this category */
-  @OneToMany('Material', (material: Material) => material.category)
-  materials: Material[];
 }

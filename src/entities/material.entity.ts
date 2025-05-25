@@ -4,9 +4,11 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { CommonEntity } from './common.entity';
-import type { Category } from './category.entity';
+import { ProductDetail } from './product-detail.entity';
+import { Inventory } from './inventory.entity';
 
 @Entity('materials')
 export class Material extends CommonEntity {
@@ -34,12 +36,11 @@ export class Material extends CommonEntity {
   @Column({ type: 'int', default: 0 })
   number_of_inventory: number;
 
-  /** Category ID reference */
-  @Column({ length: 36 })
-  category_id: string;
+  /** Product details using this material */
+  @OneToMany(() => ProductDetail, (detail: ProductDetail) => detail.material)
+  productDetails: ProductDetail[];
 
-  /** Category relationship */
-  @ManyToOne('Category', { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'category_id' })
-  category: Category;
+  /** Inventory records for this material */
+  @OneToMany(() => Inventory, (inventory: Inventory) => inventory.material)
+  inventories: Inventory[];
 }
