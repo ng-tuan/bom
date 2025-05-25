@@ -93,7 +93,7 @@ npm run migration:run
 ## API Documentation
 
 The API documentation will be available at:
-- Swagger UI: `http://localhost:3000/api` (when implemented, TODO function)
+- Swagger UI: `http://localhost:3000/api`
 
 ## License
 
