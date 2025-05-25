@@ -25,6 +25,7 @@ export class CreateAllTables1710000011000 implements MigrationInterface {
         description TEXT NULL,
         unit VARCHAR(20) NULL,
         unit_price DECIMAL(20,2) NULL,
+        waste_percentage DECIMAL(5,2) NULL,
         number_of_inventory INT DEFAULT 0,
         created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         created_user VARCHAR(100) NULL,

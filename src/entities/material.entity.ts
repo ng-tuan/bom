@@ -1,14 +1,7 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  JoinColumn,
-  OneToMany,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { CommonEntity } from './common.entity';
-import { ProductDetail } from './product-detail.entity';
 import { Inventory } from './inventory.entity';
+import { ProductDetail } from './product-detail.entity';
 
 @Entity('materials')
 export class Material extends CommonEntity {
@@ -31,6 +24,10 @@ export class Material extends CommonEntity {
   /** Price per unit of the material */
   @Column({ type: 'decimal', precision: 20, scale: 2, nullable: true })
   unit_price: number;
+
+  /** Waste percentage of the material during production */
+  @Column({ type: 'decimal', precision: 5, scale: 2, nullable: true })
+  waste_percentage: number;
 
   /** Number of items in inventory */
   @Column({ type: 'int', default: 0 })
